@@ -1,0 +1,3 @@
+Database keys should be name as the example files in this folder
+
+las llaves de la base de datos deben llamarse como los archivos de ejemplo en esta carpeta
