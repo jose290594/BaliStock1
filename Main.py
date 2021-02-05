@@ -107,15 +107,15 @@ mainlogtab1 = logwindow1.findChild(QTableWidget, 'tablaLog1')
 def addinf1():
     print('hel')
     conprov1 = connection
-    cursorObjp2 = conprov1.cursor()
-    cursorObjp2.execute("SELECT proveedores FROM proveedores ")
+    cursorObjp2 = conprov1.cursor(buffered=True)
+    cursorObjp2.execute("SELECT proveedores FROM proveedores ;")
     #conprov1.commit()
     prov_data1 = cursorObjp2.fetchall()
     for prov1 in range(0, len(prov_data1)):
         combprov1.addItem(prov_data1[prov1][0])
     conprodsku1 = connection
     cursorObjp3 = conprodsku1.cursor()
-    cursorObjp3.execute("SELECT Producto FROM stock1 ")
+    cursorObjp3.execute("SELECT Producto FROM stock1;")
     #conprodsku1.commit()
     prodsku_data1 = cursorObjp3.fetchall()
 
@@ -135,7 +135,7 @@ def inFunct1():
 
     statusLabel1.setText('obteniendo valores...')
     conGetent1 = connection
-    cursorGetent1 = conGetent1.cursor()
+    cursorGetent1 = conGetent1.cursor(buffered=True)
     cursorGetent1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(prodGo1)+"';")
     #conGetent1.commit()
     actProdcant1 = cursorGetent1.fetchall()
@@ -144,11 +144,11 @@ def inFunct1():
     try:
         statusLabel1.setText('conectando a DB...')
         conGoent1 = connection
-        cursorGoent1 = conGoent1.cursor()
+        cursorGoent1 = conGoent1.cursor(buffered=True)
         sqlGo2stock = """UPDATE stock1
-                SET cantidad = """+"'"+str(cantGonew1)+"'"+" WHERE producto = "+"'"+str(prodGo1)+"'"
+                SET cantidad = """+"'"+str(cantGonew1)+"'"+" WHERE producto = "+"'"+str(prodGo1)+"';"
         cursorGoent1.execute(str(sqlGo2stock))
-        #conGoent1.commit()
+        conGoent1.commit()
         statusLabel1.setText('cargado en DB')
         statusLabel1.setText('Hecho!')
     except EnvironmentError:
@@ -161,11 +161,11 @@ def inFunct1():
     try:
         statusLabel1.setText('conectando a DB...')
         conGoent2 = connection
-        cursorGoent2 = conGoent2.cursor()
+        cursorGoent2 = conGoent2.cursor(buffered=True)
         sqlGo2stock = """INSERT INTO registro(fecha,tipo,producto,cantidad,destino,proveedor)
-                VALUES("""+"'"+str(dateGo1)+"',"+"'"+str('entrada')+"',"+"'"+str(prodGo1)+"',"+"'"+str(cantGo1)+"',"+"'"+str('na')+"',"+"'"+str(provGo1)+"'"+")"
+                VALUES("""+"'"+str(dateGo1)+"',"+"'"+str('entrada')+"',"+"'"+str(prodGo1)+"',"+"'"+str(cantGo1)+"',"+"'"+str('na')+"',"+"'"+str(provGo1)+"'"+");"
         cursorGoent2.execute(str(sqlGo2stock))
-        #conGoent2.commit()
+        conGoent2.commit()
         print('arre')
         statusLabel1.setText('cargado en DB')
         statusLabel1.setText('Hecho!')
@@ -180,15 +180,15 @@ def addoutf1():
     #combdestout1.
     print('hel')
     conprov4 = connection
-    cursorObjp4 = conprov4.cursor()
-    cursorObjp4.execute("SELECT proveedores FROM proveedores ")
+    cursorObjp4 = conprov4.cursor(buffered=True)
+    cursorObjp4.execute("SELECT proveedores FROM proveedores;")
     #conprov4.commit()
     prov_data2 = ['USA', 'EUR']
     for prov2 in range(0, len(prov_data2)):
         combdestout1.addItem(prov_data2[prov2])
     conprodsku2 = connection
-    cursorObjp5 = conprodsku2.cursor()
-    cursorObjp5.execute("SELECT Producto FROM stock1 ")
+    cursorObjp5 = conprodsku2.cursor(buffered=True)
+    cursorObjp5.execute("SELECT Producto FROM stock1;")
     #conprodsku2.commit()
     prodsku_data2 = cursorObjp5.fetchall()
     for prodsku2 in range(0, len(prodsku_data2)):
@@ -209,11 +209,11 @@ def outFunct1():
         statusLabel2.setText('obteniendo valores...')
         conGetsal1 = connection
         cursorGetsal1 = conGetsal1.cursor()
-        cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(prodGo2)+"'")
+        cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(prodGo2)+"';")
         #conGetsal1.commit()
         actProdcant2 = cursorGetsal1.fetchall()
         cantGo1=int(int(actProdcant2[0][0])-int(cantsp2.text()))
-        cursorGetsal1.execute("SELECT caja, bombilla, cuchara, limpiador, folleto, bolsatela  FROM stock1 WHERE producto = "+"'"+str(prodGo2)+"'")
+        cursorGetsal1.execute("SELECT caja, bombilla, cuchara, limpiador, folleto, bolsatela  FROM stock1 WHERE producto = "+"'"+str(prodGo2)+"';")
         #conGetsal1.commit()
         loteObj1 = cursorGetsal1.fetchall()
         print(loteObj1)
@@ -229,14 +229,14 @@ def outFunct1():
         if bombSKU1 == 1:
 
             bombSKUvalr2=str('bombilla1')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(bombSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(bombSKUvalr2)+"';")
             #conGetsal1.commit()
             totbomval1 = int(cursorGetsal1.fetchall()[0][0])
             print('son tantas bombi1  '+str(totbomval1))
 
         if bombSKU1 == 2:
             bombSKUvalr2=str('bombilla2')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(bombSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(bombSKUvalr2)+"';")
             #conGetsal1.commit()
             totbomval1 = int(cursorGetsal1.fetchall()[0][0])
             print('son tantas bombi2'+str(totbomval1))
@@ -248,20 +248,20 @@ def outFunct1():
         print(str('miraaaa')+str(cajaSKU1))
         if cajaSKU1 == 1:
             cajaSKUvalr2=str('caja1')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cajaSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cajaSKUvalr2)+"';")
             #conGetsal1.commit()
             totcajval1 = int(cursorGetsal1.fetchall()[0][0])
             print('son tantas caja'+str(totbomval1))
             print(totcajval1)
         if cajaSKU1 == 2:
             cajaSKUvalr2=str('caja2')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cajaSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cajaSKUvalr2)+"';")
             #conGetsal1.commit()
             totcajval1= int(cursorGetsal1.fetchall()[0][0])
             print('son tantas caja2' +str(totbomval1))
         if cajaSKU1 == 3:
             cajaSKUvalr2=str('caja3')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cajaSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cajaSKUvalr2)+"';")
             #conGetsal1.commit()
             totcajval1 = int(cursorGetsal1.fetchall()[0][0])
             print('son tantas caja3' +str(totbomval1))
@@ -271,7 +271,7 @@ def outFunct1():
         ######### obteniendo SKU de cuchara
         if cucharaMark1 != 0:
             cucharaSKUvalr2=str('cuchara1')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cucharaSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cucharaSKUvalr2)+"';")
             #conGetsal1.commit()
             totcucval1 = int(cursorGetsal1.fetchall()[0][0])
         else:
@@ -279,7 +279,7 @@ def outFunct1():
         ######### obteniendo SKU de limpiador
         if limpiMark1 != 0:
             limpiSKUvalr2=str('limpia1')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(limpiSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(limpiSKUvalr2)+"';")
             #conGetsal1.commit()
             totlimval1=int(cursorGetsal1.fetchall()[0][0])
 
@@ -288,7 +288,7 @@ def outFunct1():
         ######### obteniendo SKU de folleto
         if folletoMark1 != 0:
             folletoSKUvalr2=str('folleto1')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(folletoSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(folletoSKUvalr2)+"';")
             #conGetsal1.commit()
             totlfolval1= int(cursorGetsal1.fetchall()[0][0])
 
@@ -298,7 +298,7 @@ def outFunct1():
         ######### obteniendo SKU de bolsa de tela
         if bolteMark1 != 0:
             bolsatelaSKUvalr2=str('bolsatela1')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(bolsatelaSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(bolsatelaSKUvalr2)+"';")
             #conGetsal1.commit()
             totbotval1 = int(cursorGetsal1.fetchall()[0][0])
 
@@ -343,8 +343,8 @@ def outFunct1():
                     SET cantidad = """+"'"+str(int(totbotval1)-int(cantsp2.text()))+"'"+" WHERE producto = "+"'"+str(bolsatelaSKUvalr2)+"';")
                 sqlGo2stock=str(sqlGo2stock)+str(susBot1)
 
-            cursorGosal1.executescript(str(sqlGo2stock))
-            #conGosal1.commit()
+            cursorGosal1.execute(str(sqlGo2stock))
+            conGosal1.commit()
             statusLabel2.setText('cargado en DB')
             statusLabel2.setText('Hecho!')
         except EnvironmentError:
@@ -359,9 +359,9 @@ def outFunct1():
             conGoent2 = connection
             cursorGoent2 = conGoent2.cursor()
             sqlGo2stock = """INSERT INTO registro(fecha,tipo,producto,cantidad,destino,proveedor)
-                    VALUES("""+"'"+str(dateGo2)+"',"+"'"+str('salida')+"',"+"'"+str(prodGo2)+"',"+"'"+str(cantGo2)+"',"+"'"+str(destGo1)+"',"+"'"+str('na')+"'"+")"
+                    VALUES("""+"'"+str(dateGo2)+"',"+"'"+str('salida')+"',"+"'"+str(prodGo2)+"',"+"'"+str(cantGo2)+"',"+"'"+str(destGo1)+"',"+"'"+str('na')+"'"+");"
             cursorGoent2.execute(str(sqlGo2stock))
-            #conGoent2.commit()
+            conGoent2.commit()
             print('arre')
             statusLabel2.setText('cargado en DB')
             statusLabel2.setText('Hecho!')
@@ -373,7 +373,7 @@ def outFunct1():
         statusLabel2.setText('obteniendo valores...')
         conGetsal1 = connection
         cursorGetsal1 = conGetsal1.cursor()
-        cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(prodGo2)+"'")
+        cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(prodGo2)+"';")
         #conGetsal1.commit()
         actProdcant1 = cursorGetsal1.fetchall()
         cantGo1=int(int(actProdcant1[0][0])-int(cantsp1.text()))
@@ -382,9 +382,9 @@ def outFunct1():
             conGetsal1 = connection
             cursorGetsal1 = conGetsal1.cursor()
             sqlGo2stock = """UPDATE stock1
-                    SET cantidad = """+"'"+str(cantGo2)+"'"+" WHERE producto = "+"'"+str(prodGo2)+"'"
+                    SET cantidad = """+"'"+str(cantGo2)+"'"+" WHERE producto = "+"'"+str(prodGo2)+"';"
             cursorGetsal1.execute(str(sqlGo2stock))
-            #conGetsal1.commit()
+            conGetsal1.commit()
             statusLabel2.setText('cargado en DB')
             statusLabel2.setText('Hecho!')
         except EnvironmentError:
@@ -399,9 +399,9 @@ def outFunct1():
             conGoent2 = connection
             cursorGoent2 = conGoent2.cursor()
             sqlGo2stock = """INSERT INTO registro(fecha,tipo,producto,cantidad,destino,proveedor)
-                    VALUES("""+"'"+str(dateGo2)+"',"+"'"+str('salida')+"',"+"'"+str(prodGo2)+"',"+"'"+str(cantGo2)+"',"+"'"+str(destGo1)+"',"+"'"+str('na')+"'"+")"
+                    VALUES("""+"'"+str(dateGo2)+"',"+"'"+str('salida')+"',"+"'"+str(prodGo2)+"',"+"'"+str(cantGo2)+"',"+"'"+str(destGo1)+"',"+"'"+str('na')+"'"+");"
             cursorGoent2.execute(str(sqlGo2stock))
-            #conGoent2.commit()
+            conGoent2.commit()
             print('arre')
             statusLabel1.setText('cargado en DB')
             statusLabel1.setText('Hecho!')
@@ -420,7 +420,7 @@ def viewstockf1(self):
     print('hel')
     conStock = connection
     cursorObjs1 = conStock.cursor()
-    cursorObjs1.execute("SELECT producto, cantidad FROM stock1 ")
+    cursorObjs1.execute("SELECT producto, cantidad FROM stock1;")
 
     #conStock.commit()
     
@@ -451,7 +451,7 @@ def viewlogf1():
     print('hel')
     conLog1 = connection
     cursorObjl1 = conLog1.cursor()
-    cursorObjl1.execute("SELECT fecha, tipo, producto, cantidad, destino, proveedor FROM registro")
+    cursorObjl1.execute("SELECT fecha, tipo, producto, cantidad, destino, proveedor FROM registro;")
 
     #conLog1.commit()
     
@@ -490,7 +490,7 @@ def dumpStockR():
     FinalDump1=[]
     conStockR = connection
     cursorObjsR1 = conStockR.cursor()
-    cursorObjsR1.execute("SELECT producto, cantidad FROM stock1 ")
+    cursorObjsR1.execute("SELECT producto, cantidad FROM stock1;")
 
     #conStockR.commit()
     
@@ -521,7 +521,7 @@ def dumpLogR():
     FinalDumpR1=[]
     conLogR1 = connection
     cursorObjlR1 = conLogR1.cursor()
-    cursorObjlR1.execute("SELECT fecha, tipo, producto, cantidad, destino, proveedor FROM registro")
+    cursorObjlR1.execute("SELECT fecha, tipo, producto, cantidad, destino, proveedor FROM registro;")
 
     #conLogR1.commit()
     
