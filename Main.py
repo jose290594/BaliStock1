@@ -136,7 +136,7 @@ def inFunct1():
     statusLabel1.setText('obteniendo valores...')
     conGetent1 = connection
     cursorGetent1 = conGetent1.cursor()
-    cursorGetent1.execute("SELECT cantidad FROM stock1 WHERE producto is "+"'"+str(prodGo1)+"'")
+    cursorGetent1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(prodGo1)+"';")
     #conGetent1.commit()
     actProdcant1 = cursorGetent1.fetchall()
     cantGonew1=int(int(cantsp1.text())+int(actProdcant1[0][0]))
@@ -196,7 +196,7 @@ def addoutf1():
  
     print('hel')
     addoutwindow1.show()
-###### Accion de Entrada
+###### Accion de Salidad
 def outFunct1():
     statusLabel2.setText('cargando...')
     destGo1=str(combdestout1.currentText())
@@ -209,11 +209,11 @@ def outFunct1():
         statusLabel2.setText('obteniendo valores...')
         conGetsal1 = connection
         cursorGetsal1 = conGetsal1.cursor()
-        cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto is "+"'"+str(prodGo2)+"'")
+        cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(prodGo2)+"'")
         #conGetsal1.commit()
         actProdcant2 = cursorGetsal1.fetchall()
         cantGo1=int(int(actProdcant2[0][0])-int(cantsp2.text()))
-        cursorGetsal1.execute("SELECT caja, bombilla, cuchara, limpiador, folleto, bolsatela  FROM stock1 WHERE producto is "+"'"+str(prodGo2)+"'")
+        cursorGetsal1.execute("SELECT caja, bombilla, cuchara, limpiador, folleto, bolsatela  FROM stock1 WHERE producto = "+"'"+str(prodGo2)+"'")
         #conGetsal1.commit()
         loteObj1 = cursorGetsal1.fetchall()
         print(loteObj1)
@@ -229,14 +229,14 @@ def outFunct1():
         if bombSKU1 == 1:
 
             bombSKUvalr2=str('bombilla1')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto is "+"'"+str(bombSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(bombSKUvalr2)+"'")
             #conGetsal1.commit()
             totbomval1 = int(cursorGetsal1.fetchall()[0][0])
             print('son tantas bombi1  '+str(totbomval1))
 
         if bombSKU1 == 2:
             bombSKUvalr2=str('bombilla2')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto is "+"'"+str(bombSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(bombSKUvalr2)+"'")
             #conGetsal1.commit()
             totbomval1 = int(cursorGetsal1.fetchall()[0][0])
             print('son tantas bombi2'+str(totbomval1))
@@ -248,20 +248,20 @@ def outFunct1():
         print(str('miraaaa')+str(cajaSKU1))
         if cajaSKU1 == 1:
             cajaSKUvalr2=str('caja1')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto is "+"'"+str(cajaSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cajaSKUvalr2)+"'")
             #conGetsal1.commit()
             totcajval1 = int(cursorGetsal1.fetchall()[0][0])
             print('son tantas caja'+str(totbomval1))
             print(totcajval1)
         if cajaSKU1 == 2:
             cajaSKUvalr2=str('caja2')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto is "+"'"+str(cajaSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cajaSKUvalr2)+"'")
             #conGetsal1.commit()
             totcajval1= int(cursorGetsal1.fetchall()[0][0])
             print('son tantas caja2' +str(totbomval1))
         if cajaSKU1 == 3:
             cajaSKUvalr2=str('caja3')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto is "+"'"+str(cajaSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cajaSKUvalr2)+"'")
             #conGetsal1.commit()
             totcajval1 = int(cursorGetsal1.fetchall()[0][0])
             print('son tantas caja3' +str(totbomval1))
@@ -271,7 +271,7 @@ def outFunct1():
         ######### obteniendo SKU de cuchara
         if cucharaMark1 != 0:
             cucharaSKUvalr2=str('cuchara1')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto is "+"'"+str(cucharaSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cucharaSKUvalr2)+"'")
             #conGetsal1.commit()
             totcucval1 = int(cursorGetsal1.fetchall()[0][0])
         else:
@@ -279,7 +279,7 @@ def outFunct1():
         ######### obteniendo SKU de limpiador
         if limpiMark1 != 0:
             limpiSKUvalr2=str('limpia1')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto is "+"'"+str(limpiSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(limpiSKUvalr2)+"'")
             #conGetsal1.commit()
             totlimval1=int(cursorGetsal1.fetchall()[0][0])
 
@@ -288,7 +288,7 @@ def outFunct1():
         ######### obteniendo SKU de folleto
         if folletoMark1 != 0:
             folletoSKUvalr2=str('folleto1')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto is "+"'"+str(folletoSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(folletoSKUvalr2)+"'")
             #conGetsal1.commit()
             totlfolval1= int(cursorGetsal1.fetchall()[0][0])
 
@@ -298,7 +298,7 @@ def outFunct1():
         ######### obteniendo SKU de bolsa de tela
         if bolteMark1 != 0:
             bolsatelaSKUvalr2=str('bolsatela1')
-            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto is "+"'"+str(bolsatelaSKUvalr2)+"'")
+            cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(bolsatelaSKUvalr2)+"'")
             #conGetsal1.commit()
             totbotval1 = int(cursorGetsal1.fetchall()[0][0])
 
@@ -373,7 +373,7 @@ def outFunct1():
         statusLabel2.setText('obteniendo valores...')
         conGetsal1 = connection
         cursorGetsal1 = conGetsal1.cursor()
-        cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto is "+"'"+str(prodGo2)+"'")
+        cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(prodGo2)+"'")
         #conGetsal1.commit()
         actProdcant1 = cursorGetsal1.fetchall()
         cantGo1=int(int(actProdcant1[0][0])-int(cantsp1.text()))
@@ -509,13 +509,13 @@ def dumpStockR():
         FinalDump1.append(tempDump1)
     namecsvf1= str(str(int(time.time()))+'_'+'stock_report.csv')
     with open('reportes/'+namecsvf1, 'w') as f:
-        write = csv.writer(f, lineterminator='\n') 
+        write = csv.writer(f) 
         #write = csv.DictWriter(open(namecsvf1,'w'), delimiter=',', lineterminator='\n', fieldnames=header_labels)
         #write.writerow(dict((fn,fn) for fn in header_labels))
         write.writerow(header_labels) 
         write.writerows(FinalDump1)
     
-### Funcion Vaciar Reporte Stock
+### Funcion Vaciar Reporte Registro
 def dumpLogR():
     
     FinalDumpR1=[]
@@ -543,7 +543,7 @@ def dumpLogR():
         FinalDumpR1.append(tempDump1)
     namecsvf2= str(str(int(time.time()))+'_'+'registro_report.csv')
     with open('reportes/'+namecsvf2, 'w') as f:
-        write = csv.writer(f, lineterminator='\n') 
+        write = csv.writer(f) 
       
         write.writerow(header_labels)
         write.writerows(FinalDumpR1)
