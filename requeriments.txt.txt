@@ -1,0 +1,9 @@
+datetime
+time
+sys
+os
+mysql
+mysql.connector
+pyside2
+sqlite3
+csv
