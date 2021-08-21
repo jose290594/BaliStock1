@@ -16,8 +16,8 @@ passpass1=input('Contraseña: ')
 os.system('cls')
 ssl={'cert':'keys/client-cert.pem', 'key':'keys/client-key.pem', 'ca':'keys/server-ca.pem'}
 try:
-    connection = mysql.connector.connect(host='35.192.140.237',
-                                         database='balibetovlegacy',
+    connection = mysql.connector.connect(host='x.x.x.x',
+                                         database='x',
                                          user=usus1,
                                          password=passpass1,
                                          ssl_ca=ssl.get('ca'),
@@ -177,8 +177,6 @@ def inFunct1():
 
 ### Funcion para Salida
 def addoutf1():
-    #combdestout1.
-    print('hel')
     conprov4 = connection
     cursorObjp4 = conprov4.cursor(buffered=True)
     cursorObjp4.execute("SELECT proveedores FROM proveedores;")
@@ -193,8 +191,6 @@ def addoutf1():
     prodsku_data2 = cursorObjp5.fetchall()
     for prodsku2 in range(0, len(prodsku_data2)):
         combprodout1.addItem(prodsku_data2[prodsku2][0])
- 
-    print('hel')
     addoutwindow1.show()
 ###### Accion de Salidad
 def outFunct1():
@@ -232,39 +228,37 @@ def outFunct1():
             cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(bombSKUvalr2)+"';")
             #conGetsal1.commit()
             totbomval1 = int(cursorGetsal1.fetchall()[0][0])
-            print('son tantas bombi1  '+str(totbomval1))
 
         if bombSKU1 == 2:
             bombSKUvalr2=str('bombilla2')
             cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(bombSKUvalr2)+"';")
             #conGetsal1.commit()
             totbomval1 = int(cursorGetsal1.fetchall()[0][0])
-            print('son tantas bombi2'+str(totbomval1))
+
         if bombSKU1 == 0: 
             totbomval1=0
             bombSKUvalr2=0
-            print('nada bombi')
+
         ######### obteniendo SKU de cajas
-        print(str('miraaaa')+str(cajaSKU1))
+
         if cajaSKU1 == 1:
             cajaSKUvalr2=str('caja1')
             cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cajaSKUvalr2)+"';")
             #conGetsal1.commit()
             totcajval1 = int(cursorGetsal1.fetchall()[0][0])
-            print('son tantas caja'+str(totbomval1))
-            print(totcajval1)
+
         if cajaSKU1 == 2:
             cajaSKUvalr2=str('caja2')
             cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cajaSKUvalr2)+"';")
             #conGetsal1.commit()
             totcajval1= int(cursorGetsal1.fetchall()[0][0])
-            print('son tantas caja2' +str(totbomval1))
+
         if cajaSKU1 == 3:
             cajaSKUvalr2=str('caja3')
             cursorGetsal1.execute("SELECT cantidad FROM stock1 WHERE producto = "+"'"+str(cajaSKUvalr2)+"';")
             #conGetsal1.commit()
             totcajval1 = int(cursorGetsal1.fetchall()[0][0])
-            print('son tantas caja3' +str(totbomval1))
+
         if cajaSKU1 == 0: 
             cajaSKUvalr2=0
 
@@ -459,7 +453,7 @@ def viewlogf1():
  
     header_labels = ['fecha', 'tipo', 'producto', 'cantidad', 'destino', 'proveedor']  
     mainlogtab1.setRowCount(len(log_data1))
-    #print(log_data1[0][0])
+ 
 
     for row in range(0, len(log_data1)):
 
@@ -482,7 +476,7 @@ def viewlogf1():
         mainlogtab1.item(row,4).setText(str(log_data1[row][4]))
         mainlogtab1.setItem(row,5,obj36) # Y is the column that you want to insert data
         mainlogtab1.item(row,5).setText(str(log_data1[row][5]))
-    print('hel')
+
     logwindow1.show()
 
 ### Funcion Vaciar Reporte Stock
@@ -491,21 +485,15 @@ def dumpStockR():
     conStockR = connection
     cursorObjsR1 = conStockR.cursor()
     cursorObjsR1.execute("SELECT producto, cantidad FROM stock1;")
-
     #conStockR.commit()
-    
     stock_R_data1 = cursorObjsR1.fetchall()
-    
     header_labels = ['Producto', 'Cantidad']  
     #mainstocktab1.setRowCount(len(stock_R_data1))
-    print(stock_R_data1[0][0])
-
     for row in range(0, len(stock_R_data1)):
 
         tempDump1=[]
         tempDump1.append(str(stock_R_data1[row][0]))
         tempDump1.append(str(stock_R_data1[row][1]))
-        print(tempDump1)
         FinalDump1.append(tempDump1)
     namecsvf1= str(str(int(time.time()))+'_'+'stock_report.csv')
     with open('reportes/'+namecsvf1, 'w') as f:
@@ -522,14 +510,9 @@ def dumpLogR():
     conLogR1 = connection
     cursorObjlR1 = conLogR1.cursor()
     cursorObjlR1.execute("SELECT fecha, tipo, producto, cantidad, destino, proveedor FROM registro;")
-
-    #conLogR1.commit()
-    
+    #conLogR1.commit()    
     log_R_data1 = cursorObjlR1.fetchall()
- 
     header_labels = ['fecha', 'tipo', 'producto', 'cantidad', 'destino', 'proveedor']  
-    #mainlogtab1.setRowCount(len(log_data1))
-
     for row in range(0, len(log_R_data1)):
 
         tempDump1=[]
@@ -539,12 +522,10 @@ def dumpLogR():
         tempDump1.append(str(log_R_data1[row][3]))
         tempDump1.append(str(log_R_data1[row][4]))
         tempDump1.append(str(log_R_data1[row][5]))
-        print(tempDump1)
         FinalDumpR1.append(tempDump1)
     namecsvf2= str(str(int(time.time()))+'_'+'registro_report.csv')
     with open('reportes/'+namecsvf2, 'w') as f:
         write = csv.writer(f) 
-      
         write.writerow(header_labels)
         write.writerows(FinalDumpR1)
 
